@@ -1,0 +1,1008 @@
+#GENERAL SETTINGS
+from math import sqrt
+from tkinter import*
+
+root = Tk()
+root.title("Elengedhetetlen dolgok")
+
+HEIGHT = 600
+WIDTH = 720
+
+canvas = Canvas(root, height=HEIGHT, width=WIDTH, bg="white")
+canvas.pack()
+
+frame = Frame(canvas,  bg='#42c2f4', bd=5)
+frame.place(relx=0.5, rely=0.05, relwidth=0.9, relheight=0.9, anchor='n')
+
+
+
+def pitagoraszcalculator():
+
+    for widget in frame.winfo_children():
+       widget.destroy()
+       
+    n = 0
+    def Get():
+        a = int(textbox1.get())
+        b = int(textbox2.get())
+        c = int(textbox3.get())
+
+        
+        if c == 0:
+            c = sqrt((a**2) + (b**2))
+            n = c
+            
+        if a == 0:
+            a = sqrt(abs((c**2) - (b**2)))
+            n = a
+            
+        if b == 0:
+            b = sqrt(abs((c**2) -  (a**2)))
+            n = b
+            
+
+        if a - b < c and b - c < a and c - a < b:
+            labelE.config(text = n)
+
+        else:      
+            labelE.config(text = "Nincs eredmény")
+
+
+
+
+
+
+    def enter(event):
+         Get()
+    root.bind_all('<Return>', enter)
+
+
+
+
+
+
+    def delete():
+         textbox1 = Entry(frame, font=13)
+         textbox1.place(relx =0.15, rely= 0.2, relwidth=0.7, relheight=0.05)
+
+
+         textbox2 = Entry(frame, font=13)
+         textbox2.place(relx =0.15, rely= 0.3, relwidth=0.7, relheight=0.05)
+
+
+         textbox3 = Entry(frame, font=13)
+         textbox3.place(relx =0.15, rely= 0.4, relwidth=0.7, relheight=0.05)
+
+
+         labelE = Label(frame, text=n, bg="yellow", font = 10)
+         labelE.place(relx = 0.0, rely = 0.8, relwidth = 1, relheight = 0.1)
+         labelE.config(font=("Arial", 20))
+
+
+    
+
+
+
+
+    textbox1 = Entry(frame, font=13)
+    textbox1.place(relx =0.15, rely= 0.2, relwidth=0.7, relheight=0.05)
+
+
+    textbox2 = Entry(frame, font=13)
+    textbox2.place(relx =0.15, rely= 0.3, relwidth=0.7, relheight=0.05)
+
+
+    textbox3 = Entry(frame, font=13)
+    textbox3.place(relx =0.15, rely= 0.4, relwidth=0.7, relheight=0.05)
+
+    
+
+    labelA = Label(frame, text="a = ", bg="#18c77d", font = 1)
+    labelA.place(relx = 0.05, rely = 0.2, relwidth = 0.1, relheight = 0.05)
+    labelA.config(font=("Arial", 15, "bold"))
+
+    labelB = Label(frame, text="b = ", bg="#18c77d", font = 1)
+    labelB.place(relx = 0.05, rely = 0.3, relwidth = 0.1, relheight = 0.05)
+    labelB.config(font=("Arial", 15, "bold"))
+
+    labelC = Label(frame, text="c = ", bg="#18c77d", font = 1)
+    labelC.place(relx = 0.05, rely = 0.4, relwidth = 0.1, relheight = 0.05)
+    labelC.config(font=("Arial", 15, "bold"))
+
+    labelT = Label(frame, text="Pitagorasz-tétel számológép", bg="#18c77d", font = 1)
+    labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+    labelT.config(font=("Arial", 25, "bold"))
+
+    submit = Button(frame, text="Eredmény", bg='white', fg='black', font=7, command=Get)
+    submit.place(relx = 0.1, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+    delete = Button(frame, text="Törlés", bg='white', fg='black', font=7, command=delete)
+    delete.place(relx = 0.65, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+    back = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=szamologepek)
+    back.place(relx = 0.375, rely = 0.6, relwidth = 0.25, relheight = 0.05)
+
+    labelE = Label(frame, text=n, bg="yellow", font = 10)
+    labelE.place(relx = 0.0, rely = 0.8, relwidth = 1, relheight = 0.1)
+    labelE.config(font=("Arial", 20))
+
+
+def koder():
+
+    def koderdi():
+
+
+        def delete():
+            textbox1 = Entry(frame, font=13)
+            textbox1.place(relx =0.15, rely= 0.2, relwidth=0.7, relheight=0.05)
+
+            labelE = Label(frame, text="", bg="yellow", font = 10)
+            labelE.place(relx = 0.0, rely = 0.8, relwidth = 1, relheight = 0.1)
+            labelE.config(font=("Arial", 20))
+         
+        def enter(event):
+             Get()
+        root.bind_all('<Return>', enter)
+
+        
+        def Get():
+            a = bytes(textbox1.get(), 'utf-8')
+            
+
+            labelvago = Label(frame, text="Vágólapra másolva", bg="#ffcc66", font = 1)
+            labelvago.place(relx = 0.0, rely = 0.4, relwidth = 1, relheight = 0.1)
+            labelvago.config(font=("Arial", 12, "bold"))
+
+            from cryptography.fernet import Fernet
+            import os
+
+            file_path = 'test.txt'
+            key = Fernet.generate_key()
+            
+            
+            if os.stat("test.txt").st_size == 0:
+                key_file = open("test.txt", "wb")
+                key_file.write(key)
+                key_file.close()
+
+            else:
+                key_file = open("test.txt", "r")
+                key = key_file.read()
+                
+            
+            f = Fernet(key)
+            kodolt = f.encrypt(a)
+            root.clipboard_clear()
+            root.clipboard_append(kodolt)
+            labelE.config(text=kodolt)
+
+
+            
+        
+        for widget in frame.winfo_children():
+            widget.destroy()
+
+        frame.config(bg ="#ffcc66")
+
+        labelT = Label(frame, text="Kóder", bg="#ffcc66", font = 1)
+        labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+        labelT.config(font=("Arial", 25, "bold"))
+
+        textbox1 = Entry(frame, font=13)
+        textbox1.place(relx =0.15, rely= 0.2, relwidth=0.7, relheight=0.05)
+
+        labelA = Message(frame, text="szó:", bg="#ffcc66", font = 1)
+        labelA.place(relx = 0.05, rely = 0.2, relwidth = 0.1, relheight = 0.05)
+        labelA.config(font=("Arial", 15, "bold"))
+
+        submit = Button(frame, text="Eredmény", bg='white', fg='black', font=7, command=Get)
+        submit.place(relx = 0.1, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+        back = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=koder)
+        back.place(relx = 0.375, rely = 0.6, relwidth = 0.25, relheight = 0.05)
+        
+        
+        labelE = Label(frame, text="", bg="yellow", font = 10)
+        labelE.place(relx = 0.0, rely = 0.8, relwidth = 1, relheight = 0.1)
+        labelE.config(font=("Arial", 8))
+
+        delb = Button(frame, text="Törlés", bg='white', fg='black', font=7, command=delete)
+        delb.place(relx = 0.65, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+        
+    
+    def dekoder():
+
+        def enter(event):
+             Get()
+        root.bind_all('<Return>', enter)
+
+        def Get():
+            a = bytes(textbox1.get(), 'utf-8')
+
+            from cryptography.fernet import Fernet
+            
+            key_file = open("test.txt", "r")
+            key = key_file.read()
+            
+            f = Fernet(key)
+            dekodolt = f.decrypt(a)
+            labelE.config(text=dekodolt)
+            
+
+        def delete():
+            textbox1 = Entry(frame, font=13)
+            textbox1.place(relx =0.15, rely= 0.2, relwidth=0.7, relheight=0.05)
+
+            labelE = Label(frame, text="", bg="yellow", font = 10)
+            labelE.place(relx = 0.0, rely = 0.8, relwidth = 1, relheight = 0.1)
+            labelE.config(font=("Arial", 20))
+
+
+            
+        
+        for widget in frame.winfo_children():
+            widget.destroy()
+
+        labelT = Label(frame, text="Dekóder", bg="#ffcc66", font = 1)
+        labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+        labelT.config(font=("Arial", 25, "bold"))
+
+        textbox1 = Entry(frame, font=13)
+        textbox1.place(relx =0.15, rely= 0.2, relwidth=0.7, relheight=0.05)
+
+        labelA = Label(frame, text="kód:", bg="#ffcc66", font = 1)
+        labelA.place(relx = 0.05, rely = 0.2, relwidth = 0.1, relheight = 0.05)
+        labelA.config(font=("Arial", 15, "bold"))
+
+        
+
+        submit = Button(frame, text="Eredmény", bg='white', fg='black', font=7, command=Get)
+        submit.place(relx = 0.1, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+        back = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=koder)
+        back.place(relx = 0.375, rely = 0.6, relwidth = 0.25, relheight = 0.05)
+        
+        
+        labelE = Label(frame, text="", bg="yellow", font = 10)
+        labelE.place(relx = 0.0, rely = 0.8, relwidth = 1, relheight = 0.1)
+        labelE.config(font=("Arial", 8))
+
+        delb = Button(frame, text="Törlés", bg='white', fg='black', font=7, command=delete)
+        delb.place(relx = 0.65, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+        
+    
+    for widget in frame.winfo_children():
+       widget.destroy()
+
+    labelT = Label(frame, text="Kóderek", bg="#ffcc66", font = 1)
+    labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+    labelT.config(font=("Arial", 25, "bold"))
+
+    back2 = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=backing)
+    back2.place(relx = 0.78, rely = 0.93, relwidth = 0.2, relheight = 0.05)
+
+    frame.config(bg="#ffcc66")
+    koderde = Button(frame, text="kóder", bg='white', fg='black', font=7, command=koderdi)
+    koderde.place(relx = 0.1, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    dekoder = Button(frame, text="dekóder", bg='white', fg='black', font=7, command=dekoder)
+    dekoder.place(relx = 0.65, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    
+
+
+
+
+def kepernyo():
+    frame.config(bg="#42c2f4")
+    szamologep = Button(frame, text="számológépek", bg='white', fg='black', font=7, command=szamologepek)
+    szamologep.place(relx = 0.1, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    koderv = Button(frame, text="kóderek", bg='white', fg='black', font=7, command=koder)
+    koderv.place(relx = 0.65, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    jatekok_v = Button(frame, text="játékok", bg='white', fg='black', font=7, command = jatekok)
+    jatekok_v.place(relx = 0.1, rely = 0.5, relwidth = 0.25, relheight = 0.1)
+    
+    labelT = Label(frame, text="Elengedhetetlen dolgok", bg="#42c2f4", font = 1)
+    labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+    labelT.config(font=("Arial", 25, "bold"))
+
+def jatekok():
+    def ugordat():
+        #ALAP BEÁLLÍTÁSOK
+        import pygame
+        import sys
+
+        screenWidth = 700
+        screenHeight = 500
+        win = pygame.display.set_mode((screenWidth, screenHeight))
+
+        pygame.init()
+
+        FPS = 30
+        fpsClock = pygame.time.Clock()
+        gomb = False
+
+        run = True
+        vel = 15
+        ugras = 10
+
+        level = 1
+
+        #KOCKA PARAMÉTEREI
+        x = 30
+        y = 450
+        width = 25
+        height = 30
+        v = 7
+        m = 1
+
+        jump_plus = 1.2
+        game_over = False
+
+
+        #UGRÁS VÁLTOZÓK
+        isJump = False
+        jumpCount = 10
+
+
+
+        #KILÉPÉS
+        while run:
+             pygame.time.delay(100)
+             
+             for event in pygame.event.get():
+                  if event.type == pygame.QUIT:
+                       run = False
+
+
+
+        #START GOMB MEGNYOMÁSA
+                  if gomb == False:
+
+                       rect_gomb = pygame.draw.rect(win, (234, 123, 68), (275, 200, 150, 100))
+                       font = pygame.font.SysFont('Open Sans', 60)
+                       gomb_text = font.render('Start', True, (255, 255, 255))
+                       win.blit(gomb_text, (300, 235))
+                       pygame.display.update()
+                       
+                       if event.type == pygame.MOUSEBUTTONDOWN:
+                            mouse_pos = event.pos
+                       
+                            try:
+                                 if rect_gomb.collidepoint(mouse_pos):
+                                      gomb = True
+                                      del(rect_gomb)
+                                 
+                            except:
+                                 pass
+                                  
+
+             if gomb == True:
+
+        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX               Level = 1              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+             #TÉGLALPOK MEGRAZOLÁSA
+                  if level == 1:
+                       main = pygame.draw.rect(win, (0, 255, 0), (x, y, width, height)) #main
+                       k_vonal = pygame.draw.rect(win, (0, 100, 255), (0, 480, 700, 10))     #alsó vonal
+                       portal = pygame.draw.ellipse(win, (255, 180, 0), (660, 420, 30, 50))  #portál 
+                       pygame.display.update()
+                       fpsClock.tick(FPS)
+                       win.fill((0,0,0))
+
+             
+                       level_1 = pygame.draw.rect(win, (255, 0, 0), (350, 445, 30, 35))
+
+                  try:
+                       if main.colliderect(level_1):
+                            gomb = False
+                            isJump = False
+                            main = pygame.draw.rect(win, (0, 0, 0), (x, y, width, height))
+                            del(level_1)
+                            del(k_vonal)
+                            del(portal)
+                            del(main)
+                            win.fill((0,0,0))
+                            x = 30
+                            y = 450
+                            v = 7
+                            m = 1
+                  except:
+                       pass
+                  try:
+                       if portal.colliderect(main):
+                            level = 2
+                            x = 30
+                            y = 450
+                            del(level_1)
+                            del(k_vonal)
+                            del(portal)
+                            del(main)
+                            win.fill((0,0,0))
+
+                  except:
+                       pass
+
+
+        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX               Level = 2              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                  if level == 2:
+                       gomb = True
+                       main = pygame.draw.rect(win, (0, 255, 0), (x, y, width, height)) #main
+                       k_vonal = pygame.draw.rect(win, (0, 100, 255), (0, 480, 700, 10))     #alsó vonal
+                       portal = pygame.draw.ellipse(win, (255, 180, 0), (660, 420, 30, 50))  #portál 
+                       pygame.display.update()
+                       fpsClock.tick(FPS)
+                       win.fill((0,0,0))
+
+                       level_2_1 = pygame.draw.rect(win, (255, 0, 0), (230, 445, 30, 35))
+                       level_2_2 = pygame.draw.rect(win, (255, 0, 0), (430, 445, 30, 35))
+
+                       try:
+                            if main.colliderect(level_2_1) or main.colliderect(level_2_2):
+                                 gomb = False
+                                 isJump = False
+                                 main = pygame.draw.rect(win, (0, 0, 0), (x, y, width, height))
+                                 del(level_2_1)
+                                 del(level_2_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+                                 x = 30
+                                 y = 450
+                                 v = 7
+                                 m = 1
+                       except:
+                            pass
+
+                       try:
+                            if portal.colliderect(main):
+                                 level = 3
+                                 x = 30
+                                 y = 450
+                                 del(main)
+                                 del(level_2_1)
+                                 del(level_2_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+
+                       except:
+                            pass
+
+
+
+        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX               Level = 3              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                  if level == 3:
+                       main = pygame.draw.rect(win, (0, 255, 0), (x, y, width, height)) #main
+                       k_vonal = pygame.draw.rect(win, (0, 100, 255), (0, 480, 700, 10))     #alsó vonal
+                       portal = pygame.draw.ellipse(win, (255, 180, 0), (660, 420, 30, 50))  #portál 
+                       pygame.display.update()
+                       fpsClock.tick(FPS)
+                       win.fill((0,0,0))
+
+                       level_3_1 = pygame.draw.rect(win, (255, 0, 0), (300, 345, 30, 35))
+                       level_3_2 = pygame.draw.rect(win, (255, 0, 0), (300, 445, 30, 35))
+                                 
+                       try:
+                            if main.colliderect(level_3_1) or main.colliderect(level_3_2):
+                                 gomb = False
+                                 isJump = False
+                                 main = pygame.draw.rect(win, (0, 0, 0), (x, y, width, height))
+                                 del(level_3_1)
+                                 del(level_3_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+                                 x = 30
+                                 y = 450
+                                 v = 7
+                                 m = 1
+                       except:
+                            pass
+
+                       try:
+                            if portal.colliderect(main):
+                                 level = 4
+                                 x = 30
+                                 y = 450
+                                 del(level_3_1)
+                                 del(level_3_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+
+                       except:
+                            pass
+
+
+                       
+        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX               Level = 4              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                  if level == 4:
+                       fpsClock.tick(FPS)
+
+                       
+                       
+                       k_vonal = pygame.draw.rect(win, (0, 100, 255), (0, 480, 700, 10))     #alsó vonal
+                       main = pygame.draw.rect(win, (0, 255, 0), (x, y, width, height)) #main
+                       portal = pygame.draw.ellipse(win, (255, 180, 0), (660, 420, 30, 50))  #portál 
+
+
+                       level_4_1 = pygame.draw.rect(win, (255, 0, 0), (350, 430, 30, 50))
+                       level_4_2 = pygame.draw.rect(win, (255, 0, 0), (480, 400, 30, 35))
+                       level_4_3 = pygame.draw.rect(win, (255, 0, 0), (580, 440, 30, 40))
+                       level_4_4 = pygame.draw.rect(win, (255, 0, 0), (660, 370, 30, 40))
+                       level_4_5 = pygame.draw.rect(win, (255, 0, 0), (200, 430, 30, 50))
+                       level_4_6 = pygame.draw.rect(win, (255, 0, 0), (120, 350, 30, 35))
+
+                       pygame.display.update()
+                       win.fill((0,0,0))
+                                 
+                       try:
+                            if main.colliderect(level_4_1) or main.colliderect(level_4_2) or main.colliderect(level_4_3) or main.colliderect(level_4_4) or main.colliderect(level_4_5) or main.colliderect(level_4_6):
+                                 gomb = False
+                                 isJump = False
+                                 main = pygame.draw.rect(win, (0, 0, 0), (x, y, width, height))
+                                 del(main)
+                                 del(level_4_1)
+                                 del(level_4_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+                                 x = 30
+                                 y = 450
+                                 v = 7
+                                 m = 1
+                       except:
+                            pass
+
+                       try:
+                            if portal.colliderect(main):
+                                 level = 5
+                                 x = 30
+                                 y = 450
+                                 del(level_4_1)
+                                 del(level_4_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+
+                       except:
+                            pass
+
+
+
+        #XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX               Level = 5              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                  if level == 5:
+                       fpsClock.tick(FPS)
+
+                       k_vonal = pygame.draw.rect(win, (0, 100, 255), (0, 480, 700, 10))     #alsó vonal
+                       main = pygame.draw.rect(win, (0, 255, 0), (x, y, width, height)) #main
+                       portal = pygame.draw.ellipse(win, (255, 180, 0), (660, 420, 30, 50))  #portál 
+
+
+                       level_5_1 = pygame.draw.rect(win, (255, 0, 0), (350, 430, 30, 50))
+                       level_5_2 = pygame.draw.rect(win, (255, 0, 0), (450, 430, 30, 50))
+                       level_5_3 = pygame.draw.rect(win, (255, 0, 0), (650, 360, 40, 20))
+                       level_5_4 = pygame.draw.rect(win, (255, 0, 0), (600, 430, 30, 50))
+                       level_5_5 = pygame.draw.rect(win, (255, 0, 0), (175, 400, 120, 10))
+                       level_5_6 = pygame.draw.rect(win, (255, 0, 0), (100, 430, 30, 50))
+                       level_5_7 = pygame.draw.rect(win, (255, 0, 0), (520, 370, 40, 10))
+
+                       pygame.display.update()
+                       win.fill((0,0,0))
+                          
+                       try:
+                            if main.colliderect(level_5_1) or main.colliderect(level_5_2) or main.colliderect(level_5_3) or main.colliderect(level_5_4) or main.colliderect(level_5_5) or main.colliderect(level_5_6) or main.colliderect(level_5_7):
+                                 gomb = False
+                                 isJump = False
+                                 main = pygame.draw.rect(win, (0, 0, 0), (x, y, width, height))
+                                 del(main)
+                                 del(level_5_1)
+                                 del(level_5_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+                                 x = 30
+                                 y = 450
+                                 v = 7
+                                 m = 1
+                       except:
+                            pass
+
+                       try:
+                            if portal.colliderect(main):
+                                 x = 30
+                                 y = 450
+                                 del(main)
+                                 del(portal)
+                                 del(level_5_1)
+                                 del(level_5_2)
+                                 del(k_vonal)
+                                 win.fill((0,0,0))
+                                 game_over = True
+
+                       except:
+                            pass
+
+             #MOZGÁS
+                  keys = pygame.key.get_pressed()
+
+                  if keys[pygame.K_LEFT] and x > vel:
+                       x -= vel
+                       
+
+                  if keys[pygame.K_RIGHT] and x < screenWidth - width - vel:
+                       x += vel
+
+                  
+                  if keys[pygame.K_SPACE]:
+                       if isJump == False:
+                            isJump = True
+
+             #UGRÁS
+                  if isJump:
+                       F = (1 / 2)*m*(v**2)
+
+                       y -= F
+                       v = v - 1
+                                 
+                       if v < 0:
+                            if y < 450:
+                                 m = -1
+                       
+                       if v == -8:
+                            isJump = False
+                            v = 7
+                            m = 1
+
+             if game_over == True:
+                  win.fill((0,0,0))
+                  font = pygame.font.SysFont('Open Sans', 100)
+                  font_soon = pygame.font.SysFont('Open Sans', 40)
+                  winner_text = font.render('Winner!', True, (255, 255, 255))
+                  soon_text = font_soon.render('New levels are coming soon...', True, (255, 255, 255))
+                  win.blit(soon_text, (160, 300))
+                  win.blit(winner_text, (230, 200))
+                  pygame.display.update()
+
+
+
+
+        pygame.quit()
+
+
+    def usdvissza():
+        import pygame
+        pygame.init()
+        win = pygame.display.set_mode((800, 600))
+        run = True
+
+        xr = 345
+        yr = 500
+
+        x_vel = 20
+        y_vel = 20
+
+        vel = 40
+
+        radius = 50
+
+        xc = 100
+        yc = 100
+
+        score_point = 0
+        best_score = 0
+
+        gomb = True
+
+
+
+
+        while run:
+
+             
+
+             
+             #KILÉPÉS
+             pygame.time.delay(100)
+             
+             for event in pygame.event.get():
+                  if event.type == pygame.QUIT:
+                       run = False
+
+             if gomb == True:
+                  rect_gomb = pygame.draw.rect(win, (130, 30, 150), (325, 250, 150, 100))
+                  font = pygame.font.SysFont('Open Sans', 60)
+                  gomb_text = font.render('Start', True, (255, 255, 255))
+                  win.blit(gomb_text, (350, 285))
+
+
+                  best_font = pygame.font.SysFont('Open Sans', 40)
+                  best_text = best_font.render('Best score: ' +str(best_score), True, (255, 255, 255))
+                  win.blit(best_text, (315, 430))
+                  pygame.display.update()
+
+                  if event.type == pygame.MOUSEBUTTONDOWN:
+                            mouse_pos = event.pos
+                       
+                            try:
+                                 if rect_gomb.collidepoint(mouse_pos):
+                                      gomb = False
+                                      del(rect_gomb)
+                            except:
+                                 pass
+
+             if gomb == False:
+
+                  #MEGRAJZOLÁS
+                  téglalap = pygame.draw.rect(win, (160, 200, 140), (xr, yr, 110, 15))
+                  labda = pygame.draw.circle(win, (0, 150, 200), (xc, yc), radius)
+
+                  gameOver_line = pygame.draw.rect(win, (255, 0, 0), (0, 595, 800, 1))
+
+                  #MOZGÁS
+                  keys = pygame.key.get_pressed()
+                  if keys[pygame.K_LEFT] and xr > 25:
+                       xr -= vel
+
+                  if keys[pygame.K_RIGHT] and xr < 665:
+                       xr += vel
+
+                  #ÉRINTKEZÉS
+                  if labda.colliderect(téglalap):
+                       y_vel = -y_vel
+                       score_point += 1
+                       radius -= 1
+                       
+                       
+                       if best_score < score_point:
+                            best_score = score_point
+                            
+                            
+
+                  if gameOver_line.colliderect(labda):
+                       gomb = True
+                       score_point = 0
+                       xr = 345
+                       yr = 500
+                       xc = 100
+                       yc = 100
+
+                  #SCORE
+                  score_font = pygame.font.SysFont('Open Sans', 25)
+                  score_text = score_font.render('Score: '+str(score_point), True, (255, 255, 255))
+                  win.blit(score_text, (0, 0))
+                  pygame.display.update()
+                  
+
+
+                  #LABDA MOZGÁSA + TÖBBI
+                  if xc < 0 + 50 or xc > 800 - 50:
+                       x_vel = -x_vel
+
+                  if yc < 0 + 50 or yc > 600 - 50:
+                       y_vel = -y_vel
+
+
+                  xc += x_vel
+                  yc += y_vel
+                  pygame.display.update()
+                  win.fill((0,0,0))
+
+
+             
+
+             
+
+
+        pygame.quit()
+
+
+    
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+    labelT = Label(frame, text="Játékok", bg="#cc6699", font = 1)
+    labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+    labelT.config(font=("Arial", 25, "bold"))
+
+    usd = Button(frame, text="Üsd vissza", bg='white', fg='black', font=7, command=usdvissza)
+    usd.place(relx = 0.1, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    ugorj = Button(frame, text="Ugord át", bg='white', fg='black', font=7, command=ugordat)
+    ugorj.place(relx = 0.65, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    back2 = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=backing)
+    back2.place(relx = 0.78, rely = 0.93, relwidth = 0.2, relheight = 0.05)
+    frame.config(bg='#cc6699')
+
+
+    
+        
+
+def backing():
+    for widget in frame.winfo_children():
+       widget.destroy()
+
+    kepernyo()
+    
+def szamologepek():
+    for widget in frame.winfo_children():
+       widget.destroy()
+
+    frame.config(bg='#18c77d')
+    pit = Button(frame, text="pitagorasz", bg='white', fg='black', font=7, command=pitagoraszcalculator)
+    pit.place(relx = 0.1, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    kor = Button(frame, text="kör", bg='white', fg='black', font=7, command=korkerter)
+    kor.place(relx = 0.63, rely = 0.3, relwidth = 0.25, relheight = 0.1)
+
+    bmi = Button(frame, text="BMI", bg='white', fg='black', font=7, command=BMI)
+    bmi.place(relx = 0.1, rely = 0.5, relwidth = 0.25, relheight = 0.1)
+
+    back2 = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=backing)
+    back2.place(relx = 0.78, rely = 0.93, relwidth = 0.2, relheight = 0.05)
+
+    labelT = Label(frame, text="Számológépek", bg="#18c77d", font = 1)
+    labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+    labelT.config(font=("Arial", 25, "bold"))
+
+    
+
+
+
+kepernyo()
+def BMI():
+    def delete():
+        textbox1 = Entry(frame, font=13)
+        textbox1.place(relx =0.25, rely= 0.25, relwidth=0.7, relheight=0.05)
+
+        textbox2 = Entry(frame, font=13)
+        textbox2.place(relx =0.25, rely= 0.35, relwidth=0.7, relheight=0.05)
+
+        labelE = Label(frame, text="", bg="yellow", font = 10)
+        labelE.place(relx = 0.0, rely = 0.75, relwidth = 1, relheight = 0.1)
+        labelE.config(font=("Arial", 20))
+
+        labelE2 = Label(frame, text="", bg="yellow", font = 10)
+        labelE2.place(relx = 0.0, rely = 0.85, relwidth = 1, relheight = 0.1)
+        labelE2.config(font=("Arial", 20))
+
+
+        
+    def Get():
+        a = int(textbox1.get())
+        b = int(textbox2.get())
+
+        b2 = b/100
+        b2 = b2*b2
+        
+
+        c = a/b2
+
+        if c < 15:
+            labelE2.config(text = "Kórosan sovány")
+
+        if c >= 15 and c < 18.5:
+            labelE2.config(text = "Sovány")
+
+        if c >= 18.5  and c < 24.9:
+            labelE2.config(text = "Normális érték")
+
+        if c >= 24.9  and c < 29.9:
+            labelE2.config(text = "Túlsúlyos")
+
+        if c >= 29.9:
+            labelE2.config(text = "Kórosan túlsúlyos")
+
+        labelE.config(text = c)
+
+    
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+    labelA = Label(frame, text="Tömeg:", bg="#18c77d", font = 1)
+    labelA.place(relx = 0.01, rely = 0.25, relwidth = 0.2, relheight = 0.05)
+    labelA.config(font=("Arial", 15, "bold"))
+
+    labelB = Label(frame, text="Magasság:", bg="#18c77d", font = 1)
+    labelB.place(relx = 0.03, rely = 0.35, relwidth = 0.2, relheight = 0.05)
+    labelB.config(font=("Arial", 15, "bold"))
+
+    textbox1 = Entry(frame, font=13)
+    textbox1.place(relx =0.25, rely= 0.25, relwidth=0.7, relheight=0.05)
+
+    textbox2 = Entry(frame, font=13)
+    textbox2.place(relx =0.25, rely= 0.35, relwidth=0.7, relheight=0.05)
+
+    submit = Button(frame, text="Eredmény", bg='white', fg='black', font=7, command=Get)
+    submit.place(relx = 0.1, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+    delete2 = Button(frame, text="Törlés", bg='white', fg='black', font=7, command=delete)
+    delete2.place(relx = 0.65, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+    back = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=szamologepek)
+    back.place(relx = 0.375, rely = 0.6, relwidth = 0.25, relheight = 0.05)
+
+    labelE = Label(frame, text="", bg="yellow", font = 10)
+    labelE.place(relx = 0.0, rely = 0.75, relwidth = 1, relheight = 0.1)
+    labelE.config(font=("Arial", 20))
+
+    labelE2 = Label(frame, text="", bg="yellow", font = 10)
+    labelE2.place(relx = 0.0, rely = 0.85, relwidth = 1, relheight = 0.1)
+    labelE2.config(font=("Arial", 20))
+
+    labelT = Label(frame, text="BMI kalkulátor", bg="#18c77d", font = 1)
+    labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.088)
+    labelT.config(font=("Arial", 25, "bold"))
+
+
+def korkerter():
+    n = 0
+    import math
+    pi = math.pi
+
+    
+    def teruletd():
+        r = int(textbox1.get())
+        d = int(textbox2.get())
+
+        
+        if r == 0:
+            n = (d/2)**2*pi
+
+        if d == 0:
+            n = r**2*pi
+
+        labelE.config(text = n)
+
+    def keruletd():
+        r = int(textbox1.get())
+        d = int(textbox2.get())
+
+        
+        if r == 0:
+            n = d*pi
+
+        if d == 0:
+            n = r*2*pi
+
+        labelE.config(text = n)
+
+
+    
+    for widget in frame.winfo_children():
+       widget.destroy()
+
+    labelA = Label(frame, text="r = ", bg="#18c77d", font = 1)
+    labelA.place(relx = 0.05, rely = 0.25, relwidth = 0.1, relheight = 0.05)
+    labelA.config(font=("Arial", 15, "bold"))
+
+    labelB = Label(frame, text="d = ", bg="#18c77d", font = 1)
+    labelB.place(relx = 0.05, rely = 0.35, relwidth = 0.1, relheight = 0.05)
+    labelB.config(font=("Arial", 15, "bold"))
+
+    terulet = Button(frame, text="Terület", bg='white', fg='black', font=7, command=teruletd)
+    terulet.place(relx = 0.1, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+    textbox1 = Entry(frame, font=13)
+    textbox1.place(relx =0.15, rely= 0.25, relwidth=0.7, relheight=0.05)
+
+    textbox2 = Entry(frame, font=13)
+    textbox2.place(relx =0.15, rely= 0.35, relwidth=0.7, relheight=0.05)
+
+    labelE = Label(frame, text=n, bg="yellow", font = 10)
+    labelE.place(relx = 0.0, rely = 0.8, relwidth = 1, relheight = 0.1)
+    labelE.config(font=("Arial", 20))
+
+    back = Button(frame, text="Vissza", bg='white', fg='black', font=7, command=szamologepek)
+    back.place(relx = 0.375, rely = 0.6, relwidth = 0.25, relheight = 0.05)
+
+    kerulet = Button(frame, text="Kerület", bg='white', fg='black', font=7, command=keruletd)
+    kerulet.place(relx = 0.65, rely = 0.57, relwidth = 0.25, relheight = 0.1)
+
+    labelT = Label(frame, text="Kör kerülete, területe", bg="#18c77d", font = 1)
+    labelT.place(relx = 0.0, rely = 0.05, relwidth = 1, relheight = 0.095)
+    labelT.config(font=("Arial", 25, "bold"))
+
+
+root.mainloop()
